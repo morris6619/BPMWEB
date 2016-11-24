@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9111ec2ae6ff486284ae9b25366dd259" Name="Diagram1">
+        <EntityTypeShape EntityType="KhopeModel.Book" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.BookType" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.BillOfMaterial" Width="1.5" PointX="8.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.Culture" Width="1.5" PointX="3.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.Illustration" Width="1.5" PointX="3.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.Location" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.Product" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductCategory" Width="1.5" PointX="1.5" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductCostHistory" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductDescription" Width="1.5" PointX="3.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductInventory" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductListPriceHistory" Width="1.5" PointX="5.25" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductModel" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductModelIllustration" Width="1.5" PointX="6" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductModelProductDescriptionCulture" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductPhoto" Width="1.5" PointX="6" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductProductPhoto" Width="1.5" PointX="8.25" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductReview" Width="1.5" PointX="5.25" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductSubcategory" Width="1.5" PointX="0.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ScrapReason" Width="1.5" PointX="9" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.TransactionHistory" Width="1.5" PointX="5.25" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.TransactionHistoryArchive" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.UnitMeasure" Width="1.5" PointX="0.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.WorkOrder" Width="1.5" PointX="11.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.WorkOrderRouting" Width="1.5" PointX="13.5" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="KhopeModel.ProductDocument" Width="1.5" PointX="5.25" PointY="39.75" IsExpanded="true" />
+        <AssociationConnector Association="KhopeModel.FK_BillOfMaterials_Product_ComponentID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_BillOfMaterials_Product_ProductAssemblyID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_BillOfMaterials_UnitMeasure_UnitMeasureCode" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductModelProductDescriptionCulture_Culture_CultureID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductModelIllustration_Illustration_IllustrationID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductInventory_Location_LocationID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_WorkOrderRouting_Location_LocationID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_Product_ProductModel_ProductModelID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_Product_ProductSubcategory_ProductSubcategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_Product_UnitMeasure_SizeUnitMeasureCode" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_Product_UnitMeasure_WeightUnitMeasureCode" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductCostHistory_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductDocument_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductInventory_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductListPriceHistory_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductProductPhoto_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductReview_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_TransactionHistory_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_WorkOrder_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductSubcategory_ProductCategory_ProductCategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductModelProductDescriptionCulture_ProductDescription_ProductDescriptionID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductModelIllustration_ProductModel_ProductModelID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductModelProductDescriptionCulture_ProductModel_ProductModelID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_ProductProductPhoto_ProductPhoto_ProductPhotoID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_WorkOrder_ScrapReason_ScrapReasonID" ManuallyRouted="false" />
+        <AssociationConnector Association="KhopeModel.FK_WorkOrderRouting_WorkOrder_WorkOrderID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

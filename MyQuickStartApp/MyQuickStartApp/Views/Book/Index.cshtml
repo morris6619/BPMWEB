@@ -1,0 +1,22 @@
+﻿
+@(Html.Kendo().Grid<MyQuickStartApp.Models.Book>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.name);
+        columns.Bound(c => c.booktypeid);
+      })
+      .ToolBar(toolbar => {
+            toolbar.Excel();
+            toolbar.Pdf();
+      })
+      .Pageable()
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable(scrollable => scrollable.Enabled(false))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Books_Read", "Book"))
+      )
+)

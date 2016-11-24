@@ -1,0 +1,197 @@
+﻿
+@using Prototyping.Ipsum
+@using Prototyping.Placeholdit
+@{
+    ViewBag.Title = "Team Efficiency";
+}
+
+<section id="app-title-bar" class="row">
+    <div class="col-sm-3">
+        <h1 class="title">@ViewBag.Title</h1>
+    </div>
+    <div class="hamburger">
+ @*@(Html.Kendo().Button()
+                .Name("menuPanelOpen")
+                .Content("menu")
+                .Icon("hbars")
+                .HtmlAttributes(new { @class = "k-rpanel-toggle" }
+    )*@
+
+    </div>
+</section>
+
+<div class="app-wrapper">
+    <!-- Menu Panel -->
+     @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
+        @<div>
+             <div class="text-right">
+               @(Html.Kendo().Button()
+               .Name("menuPanelClose")
+               .Content("Close")
+               .Icon("close")
+               .HtmlAttributes(new { @class = "k-rpanel-toggle" })
+                )
+             </div>
+        <h3>Report Range</h3>
+        <p>@Html.Label("Stats from")</p>
+        <p>
+            <!-- Stats From Date Picker -->
+         @(Html.Kendo().DatePicker()
+           .Name("StatsFrom")
+           .Value(new DateTime(1996, 1, 1))
+           .Events(e => e.Change("onCriteriaChange"))
+            )       
+        </p>
+        <p>@Html.Label("Stats to")</p>
+        <p>
+            <!-- Stats To Date Picker -->
+            @(Html.Kendo().DatePicker()
+            .Name("StatsTo")
+            .Value(new DateTime(1998, 1, 1))
+            .Events(e => e.Change("onCriteriaChange"))            
+            )
+            
+        </p>
+        <nav id="employee-list">
+            <h3>Team members</h3>
+            <!-- Employee List View -->
+            <!-- Employee List View -->
+            @(Html.Kendo().ListView<KendoQsBoilerplate.Employee>()
+            .Name("EmployeesList")
+            .ClientTemplateId("EmployeeItemTemplate")
+            .TagName("ul")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("EmployeesList_Read", "Home"));
+            })
+            .Selectable(s => s.Mode(ListViewSelectionMode.Single))
+            .Events(e => e.DataBound("onListDataBound")
+             .Change("onCriteriaChange"))
+            )
+</nav>
+    </div>
+     ))
+
+    <!-- /Menu Panel -->
+
+    <section id="main-section-content" class="row">
+        <article class="col-xs-12">
+            <div id="employee-details" class="row">
+                <div id="employee-about" class="col-xs-12 col-lg-4">
+                    <!-- Employee Avatar -->
+    
+                </div>
+                <div class="col-xs-12 col-lg-4">
+                    <div class="chart-wrap">
+                        <h3 class="chart-title">Quarter to date sales</h3>
+                        <p class="sales-report-value" id="EmployeeQuarterSalesLabel"></p>
+                        <!-- QTD Sales Chart -->
+                         @Html.Partial("_QuarterToDateSales")
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-4">
+                    <div class="chart-wrap">
+                        <h3 class="chart-title">Monthly Average Sales</h3>
+                        <p class="sales-report-value" id="EmployeeAverageSalesLabel"></p>
+                        <!-- Montly Sales Chart -->
+                        @Html.Partial("_MonthlySalesByEmployee")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Representative orders</h3>
+                    <!-- Invoices -->
+                    @Html.Action("Index", "Invoice")
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+
+<!-- Kendo Templates -->
+<script type="text/x-kendo-tmpl" id="EmployeeItemTemplate">
+    <li class="employee">
+        <div>
+            <img src="@(Url.Content("~/content/employees/"))#:EmployeeId#-t.png" />
+            <span> #: FullName #</span>
+        </div>
+    </li>
+</script>
+
+
+<script type="text/x-kendo-tmpl" id="employeeAvatarTemplate">
+
+    <img src="@(Url.Content("~/content/employees/"))#:EmployeeId#.png" />
+    <span>#:FullName#</span>
+</script>
+
+
+<!-- /Kendo Templates -->
+
+@section Scripts {
+    <script>
+        function onListDataBound(e) {
+            this.select($(".employee:first"));
+        }
+        function getSelectedEmployee() {
+            var employeeList = $("#EmployeesList").data("kendoListView"),
+            employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid"));
+            return employee;
+        }
+        function updateEmployeeAvatar() {//更新員工業績表
+            var employee = getSelectedEmployee(),
+                template = kendo.template($("#employeeAvatarTemplate").html());
+
+            //apply template
+            $("#employee-about").html(template(employee));
+        }
+  
+        function getEmployeeFilter() {          //過濾員工
+            var employee = getSelectedEmployee(),
+                statsFrom = $("#StatsFrom").data("kendoDatePicker"),
+                statsTo = $("#StatsTo").data("kendoDatePicker");
+
+            var filter = {
+                employeeId: employee.EmployeeId,
+                salesPerson: employee.FullName,
+                statsFrom: statsFrom.value(),
+                statsTo: statsTo.value()
+            }
+            return filter;
+        }
+        function refreshGrid() {               //重新整理列表
+            var employeeSales = $("#EmployeeSales").data("kendoGrid");
+            employeeSales.dataSource.read();
+        }
+        function onCriteriaChange() {
+            updateEmployeeAvatar();
+            refreshGrid();
+            refreshEmployeeQuarterSales();
+            refreshEmployeeAverageSales();
+        }
+        function refreshEmployeeQuarterSales() {
+            var employeeQuarterSales = $("#EmployeeQuarterSales").data("kendoChart");
+            employeeQuarterSales.dataSource.read();
+        }
+        function refreshEmployeeAverageSales() {
+            var employeeAverageSales = $("#EmployeeAverageSales").data("kendoChart");
+            employeeAverageSales.dataSource.read();
+        }
+        function onQuarterSalesDataBound(e) {
+            var data = this.dataSource.at(0);
+            $("#EmployeeQuarterSalesLabel").text(kendo.toString(data.Current, "c2"));
+        }
+        function onAverageSalesDataBound(e) {
+            var label = $("#EmployeeAverageSalesLabel"),
+                data = this.dataSource.aggregates()
+
+            if (data.EmployeeSales) {
+                label.text(kendo.toString(data.EmployeeSales.average, "c2"));
+            } else {
+                label.text(kendo.toString(0, "c2"));
+            }
+        }
+     
+    </script>
+}

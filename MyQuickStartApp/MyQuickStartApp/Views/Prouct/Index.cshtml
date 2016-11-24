@@ -1,0 +1,45 @@
+﻿
+@(Html.Kendo().Grid<MyQuickStartApp.Models.Product>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.ProductNumber);
+        columns.Bound(c => c.MakeFlag);
+        columns.Bound(c => c.FinishedGoodsFlag);
+        columns.Bound(c => c.Color);
+        columns.Bound(c => c.SafetyStockLevel);
+        columns.Bound(c => c.ReorderPoint);
+        columns.Bound(c => c.StandardCost);
+        columns.Bound(c => c.ListPrice);
+        columns.Bound(c => c.Size);
+        columns.Bound(c => c.Weight);
+        columns.Bound(c => c.DaysToManufacture);
+        columns.Bound(c => c.ProductLine);
+        columns.Bound(c => c.Class);
+        columns.Bound(c => c.Style);
+        columns.Bound(c => c.SellStartDate).Format("{yyyy}");
+        columns.Bound(c => c.SellEndDate);
+        columns.Bound(c => c.DiscontinuedDate);
+        //columns.Bound(c => c.rowguid);
+        columns.Bound(c => c.ModifiedDate).Format("{0:MM/dd/yyyy}");
+      })
+      .ToolBar(toolbar => {
+            toolbar.Excel();
+            toolbar.Pdf();
+      })
+      .Pageable()
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable(scrollable => scrollable.Enabled(false))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Products_Read", "Prouct"))
+      )
+)
+
+@(Html.Kendo().ListView(Model)
+
+
+)
